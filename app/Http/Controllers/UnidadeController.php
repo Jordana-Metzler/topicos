@@ -11,7 +11,8 @@ class UnidadeController extends Controller
      */
     public function index()
     {
-        //
+        $unidades = Unidade::all();
+        return view ('unidades.index', compact('unidades'));
     }
 
     /**
@@ -19,7 +20,7 @@ class UnidadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('unidades.create');
     }
 
     /**
@@ -27,7 +28,12 @@ class UnidadeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Unidade = new Unidade([
+            'nome' => $request->input('nome')
+        ]);
+
+        $Aluno -> save();
+        return redireft()->route(unidades.index);
     }
 
     /**

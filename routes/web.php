@@ -27,5 +27,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('alunos', AlunoController::class);
-
+Route::resource('professores', ProfessorController::class);
+Route::resource('unidades', UnidadeController::class);
+Route::resource('turmas', TurmaController::class);
 require __DIR__.'/auth.php';

@@ -11,7 +11,8 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        //
+        $turmas = Turma::all();
+        return view ('turmas.index', compact('turmas'));
     }
 
     /**
@@ -19,7 +20,7 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        //
+        return view('turmas.create');
     }
 
     /**
@@ -27,7 +28,14 @@ class TurmaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Turma = new Turma([
+            'dias_aula' => $request->input('dias_aula'),
+            'nome' => $request->input('nome'),
+            'horario' => $request->input('horario'),
+        ]);
+
+        $Aluno -> save();
+        return redireft()->route(alunos.index);
     }
 
     /**
