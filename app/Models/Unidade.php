@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Unidade extends Model
 {
     protected $table = 'unidades';
-    protected $fillabel = ['nome'];
+    protected $fillable = ['nome'];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Aluno;
 
 class AlunoController extends Controller
 {
@@ -35,7 +36,7 @@ class AlunoController extends Controller
         ]);
 
         $Aluno -> save();
-        return redireft()->route(alunos.index);
+        return redirect()->route('alunos.index');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Professor;
 
 class ProfessorController extends Controller
 {
@@ -35,7 +36,7 @@ class ProfessorController extends Controller
         ]);
 
         $Professor -> save();
-        return redireft()->route(professores.index);
+        return redirect()->route('professores.index');
     }
 
     /**

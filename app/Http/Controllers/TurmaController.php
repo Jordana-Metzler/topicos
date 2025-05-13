@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Turma;
 
 class TurmaController extends Controller
 {
@@ -34,8 +35,8 @@ class TurmaController extends Controller
             'horario' => $request->input('horario'),
         ]);
 
-        $Aluno -> save();
-        return redireft()->route(alunos.index);
+        $Turma -> save();
+        return redirect()->route('turmas.index');
     }
 
     /**

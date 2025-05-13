@@ -4,6 +4,11 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\UnidadeController;
+use App\Http\Controllers\TurmaController;
+use App\Http\Controllers\ProfessorController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,8 +31,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::resource('alunos', AlunoController::class);
-Route::resource('professores', ProfessorController::class);
-Route::resource('unidades', UnidadeController::class);
-Route::resource('turmas', TurmaController::class);
+Route::resource('alunos', AlunoController::class)
+    ->only(['index','create', 'store', 'show', 'edit', 'update', 'destroy']);
+Route::resource('professores', ProfessorController::class)
+    ->only(['index','create', 'store', 'show', 'edit', 'update', 'destroy']);
+Route::resource('unidades', UnidadeController::class)
+    ->only(['index','create', 'store', 'show', 'edit', 'update', 'destroy']);
+Route::resource('turmas', TurmaController::class)
+    ->only(['index','create', 'store', 'show', 'edit', 'update', 'destroy']);
 require __DIR__.'/auth.php';

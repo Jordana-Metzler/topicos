@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Unidade;
 
 class UnidadeController extends Controller
 {
@@ -32,8 +33,8 @@ class UnidadeController extends Controller
             'nome' => $request->input('nome')
         ]);
 
-        $Aluno -> save();
-        return redireft()->route(unidades.index);
+        $Unidade -> save();
+        return redirect()->route('unidades.index');
     }
 
     /**
