@@ -1,5 +1,9 @@
 <x-layouts.app>
 
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    </head>
+
     <body>
         <div class="container">
             <h1>Nova Unidade</h1>

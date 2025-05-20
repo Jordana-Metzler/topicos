@@ -1,32 +1,38 @@
 <x-layouts.app :title="__('Minhas Unidade')">
-    <div>
-        <div>
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    </head>
+    <div class ="container">
+        <div class="header">
             <h1>Minhas Unidades</h1>
-            <a href="{{ route('unidades.create') }}">Nova Unidade</a>
+            <a href="{{ route('unidades.create') }}" class="btn">Nova Unidade</a>
         </div>
 
         @if($unidades->isEmpty())
             <p>Nenhuma unidade cadastrada.</p>
         @else
-            <table border="1" cellpadding="8" cellspacing="0">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Nome</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($unidades as $unidade)
                         <tr>
                             <td>{{ $unidade->nome }}</td>
-                            <a href="{{ route('unidades.show', $unidade) }}">Ver</a>
+                            <td>
+                            <a href="{{ route('unidades.show', $unidade) }}" class="link blue">Ver</a>
                             |
-                            <a href="{{ route('unidades.edit', $unidade) }}">Editar</a>
+                            <a href="{{ route('unidades.edit', $unidade) }}" class="link yellow">Editar</a>
                             |
-                            <form action="{{ route('unidades.destroy', $unidade) }}" method="POST" style="display:inline"
+                            <form action="{{ route('unidades.destroy', $unidade) }}" method="POST" class="inline"
                                 onsubmit="return confirm('Tem certeza que deseja excluir esta unidade?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Excluir</button>
+                                <button class="link red" type="">Excluir</button>
                             </form>
                             </td>
                         </tr>

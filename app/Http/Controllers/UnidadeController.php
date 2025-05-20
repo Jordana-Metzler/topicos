@@ -40,9 +40,10 @@ class UnidadeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $unidade = Unidade::findOrFail($id);
+        return view('unidades.show', ['unidade' => $unidade]);
     }
 
     /**
@@ -50,7 +51,8 @@ class UnidadeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $unidade = Unidade::findOrFail($id);
+        return view('unidades.edit', compact('unidade'));
     }
 
     /**
@@ -58,7 +60,18 @@ class UnidadeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $unidade = Unidade::findOrFail($id);
+        $data = $request->validate([
+            'nome'      => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+        ]);
+        
+        
+        $unidade->update($data);
+
+        return redirect()
+            ->route('unidades.index')
+            ->with('success', 'Unidade atualizada com sucesso!');
     }
 
     /**
@@ -66,6 +79,12 @@ class UnidadeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $unidade = Unidade::findOrFail($id);
+        
+        $unidade->delete();
+
+        return redirect()
+            ->route('unidades.index')
+            ->with('success', 'Unidade excluída com sucesso!');
     }
 }

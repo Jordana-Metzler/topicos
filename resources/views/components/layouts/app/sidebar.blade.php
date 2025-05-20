@@ -20,7 +20,7 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Alunos') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route(name: 'alunos.index')" :current="request()->routeIs('alunos.index')" wire:navigate>{{ __('Alunos') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -28,21 +28,21 @@
             
             <flux:navlist variant="outline">
                 <flux:navlist.group class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Professores') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('professores.index')" :current="request()->routeIs('professores.index')" wire:navigate>{{ __('Professores') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             
             <flux:navlist variant="outline">
                 <flux:navlist.group class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Turmas') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('turmas.index')" :current="request()->routeIs('turmas.index')" wire:navigate>{{ __('Turmas') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             
             <flux:navlist variant="outline">
                 <flux:navlist.group class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Unidades') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('unidades.index')" :current="request()->routeIs('unidades.index')" wire:navigate>{{ __('Unidades') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
