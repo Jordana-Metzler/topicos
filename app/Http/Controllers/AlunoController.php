@@ -33,6 +33,7 @@ class AlunoController extends Controller
             'nome' => $request->input('nome'),
             'telefone' => $request->input('telefone'),
             'data_nasc' => $request->input('data_nasc'),
+            'rturmas_id' => $request->input('turmas_id')
         ]);
 
         $Aluno -> save();
@@ -42,9 +43,10 @@ class AlunoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        return view('alunos.show', ['aluno' => $aluno]);
     }
 
     /**
@@ -52,7 +54,8 @@ class AlunoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        return view('alunos.edit', compact('aluno'));
     }
 
     /**
@@ -60,7 +63,21 @@ class AlunoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        $data = $request->validate([
+            'nome' => 'required|string|max:255',
+            'data_nasc' => 'required|string|max:255',
+            'telefone' => 'required|string|max:255',
+            'turmas_id' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+        ]);
+
+
+        $aluno->update($data);
+
+        return redirect()
+            ->route('alunos.index')
+            ->with('success', 'Aluno atualizado com sucesso!');
     }
 
     /**
@@ -68,6 +85,12 @@ class AlunoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+
+        $aluno->delete();
+
+        return redirect()
+            ->route('alunos.index')
+            ->with('success', 'Aluno excluído com sucesso!');
     }
 }

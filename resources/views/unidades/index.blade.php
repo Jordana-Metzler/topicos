@@ -32,7 +32,12 @@
                                 onsubmit="return confirm('Tem certeza que deseja excluir esta unidade?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="link red" type="">Excluir</button>
+                                <button
+                                        type="button"
+                                        class="btn-excluir link red"
+                                        data-nome="{{ $unidade->nome }}">
+                                        Excluir
+                                    </button>
                             </form>
                             </td>
                         </tr>

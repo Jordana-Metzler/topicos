@@ -1,18 +1,28 @@
-<x-layouts.app :title="__('aluno')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
+<x-layouts.app>
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Novo Aluno</h1>
+            <form action="{{ route('alunos.store') }}" method="POST">
+                <!-- Token CSRF para proteção contra ataques CSRF -->
+                @csrf
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" name="telefone">
+                    <label for="data_nasc">Data de nascimento:</label>
+                    <input type="text" name="data_nasc">
+                    <label for="turmas_id">Número turma:</label>
+                    <input type="text" name="turmas_id">
+                </div>
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="{{ route('alunos.index') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
         </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-        </div>
-    </div>
+    </body>
 </x-layouts.app>

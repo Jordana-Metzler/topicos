@@ -13,7 +13,7 @@ class ProfessorController extends Controller
     public function index()
     {
         $professores = Professor::all();
-        return view ('professores.index', compact('professores'));
+        return view('professores.index', compact('professores'));
     }
 
     /**
@@ -35,16 +35,17 @@ class ProfessorController extends Controller
             'email' => $request->input('email'),
         ]);
 
-        $Professor -> save();
+        $Professor->save();
         return redirect()->route('professores.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $professor = Professor::findOrFail($id);
+        return view('professores.show', ['professor' => $professor]);
     }
 
     /**
@@ -52,7 +53,8 @@ class ProfessorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $professor = Professor::findOrFail($id);
+        return view('professores.edit', compact('professor'));
     }
 
     /**
@@ -60,7 +62,20 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $professor = Professor::findOrFail($id);
+        $data = $request->validate([
+            'nome' => 'required|string|max:255',
+            'telefone' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+        ]);
+
+
+        $professor->update($data);
+
+        return redirect()
+            ->route('professores.index')
+            ->with('success', 'Professor atualizado com sucesso!');
     }
 
     /**
@@ -68,6 +83,12 @@ class ProfessorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $professor = Professor::findOrFail($id);
+
+        $professor->delete();
+
+        return redirect()
+            ->route('professores.index')
+            ->with('success', 'Professor excluído com sucesso!');
     }
 }
