@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Turma;
+use App\Models\Unidade;
+use App\Models\Professor;
 
 class TurmaController extends Controller
 {
@@ -12,8 +14,8 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        $turmas = Turma::all();
-        return view ('turmas.index', compact('turmas'));
+        $turmas = Turma::with(['unidade', 'professor'])->get();
+        return view('turmas.index', compact('turmas'));
     }
 
     /**
@@ -21,7 +23,10 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        return view('turmas.create');
+        $unidades = Unidade::all();
+        $professores = Professor::all();
+
+        return view('turmas.create', compact('unidades', 'professores'));
     }
 
     /**
@@ -33,18 +38,20 @@ class TurmaController extends Controller
             'dias_aula' => $request->input('dias_aula'),
             'nome' => $request->input('nome'),
             'horario' => $request->input('horario'),
+            'unidades_id' => $request->input('unidades_id'),
+            'professores_id' => $request->input('professores_id'),
         ]);
 
-        $Turma -> save();
+        $Turma->save();
         return redirect()->route('turmas.index');
     }
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+        return view('turmas.show', ['turma' => $turma]);
     }
 
     /**
@@ -52,7 +59,11 @@ class TurmaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+        $unidades = Unidade::all();
+        $professores = Professor::all();
+
+        return view('turmas.create', compact('unidades', 'professores'));
     }
 
     /**
@@ -60,7 +71,22 @@ class TurmaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        $data = $request->validate([
+            'nome' => 'required|string|max:255',
+            'dias_aula' => 'required|string|max:255',
+            'horario' => 'required|string|max:255',
+            'unidades_id' => 'required',
+            'professores_id' => 'required',
+        ]);
+
+
+        $turma->update($data);
+
+        return redirect()
+            ->route('turmas.index')
+            ->with('success', 'Turma atualizada com sucesso!');
     }
 
     /**
@@ -68,6 +94,12 @@ class TurmaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        $turma->delete();
+
+        return redirect()
+            ->route('turmas.index')
+            ->with('success', 'Turma excluída com sucesso!');
     }
 }

@@ -17,8 +17,15 @@
                     <input type="text" name="telefone">
                     <label for="data_nasc">Data de nascimento:</label>
                     <input type="text" name="data_nasc">
-                    <label for="turmas_id">Número turma:</label>
-                    <input type="text" name="turmas_id">
+                    <label for="turmas_id">Turma:</label>
+                    <select name="turmas_id" id="turmas_id" required>
+                        <option value="">Selecione...</option>
+                        @foreach($turmas as $turma)
+                            <option value="{{ $turma->id }}" {{ old('turmas_id') == $turma->id ? 'selected' : '' }}>
+                                {{ $turma->nome }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-success">Salvar</button>
                 <a href="{{ route('alunos.index') }}" class="btn btn-secondary">Cancelar</a>

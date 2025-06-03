@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aluno;
+use App\Models\Turma;
 
 class AlunoController extends Controller
 {
@@ -12,8 +13,8 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        $alunos = Aluno::all();
-        return view ('alunos.index', compact('alunos'));
+        $alunos = Aluno::with('turma')->get();
+        return view('alunos.index', compact('alunos'));
     }
 
     /**
@@ -21,8 +22,10 @@ class AlunoController extends Controller
      */
     public function create()
     {
-       return view('alunos.create');
+        $turmas = Turma::all();
+        return view('alunos.create', compact('turmas'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,10 +36,10 @@ class AlunoController extends Controller
             'nome' => $request->input('nome'),
             'telefone' => $request->input('telefone'),
             'data_nasc' => $request->input('data_nasc'),
-            'rturmas_id' => $request->input('turmas_id')
+            'turmas_id' => $request->input('turmas_id')
         ]);
 
-        $Aluno -> save();
+        $Aluno->save();
         return redirect()->route('alunos.index');
     }
 
@@ -54,8 +57,9 @@ class AlunoController extends Controller
      */
     public function edit(string $id)
     {
-        $aluno = Aluno::findOrFail($id);
-        return view('alunos.edit', compact('aluno'));
+        $aluno = Aluno::findOrFail($id); // ← faltava isso
+        $turmas = Turma::all();
+        return view('alunos.edit', compact('aluno', 'turmas'));
     }
 
     /**
@@ -68,8 +72,7 @@ class AlunoController extends Controller
             'nome' => 'required|string|max:255',
             'data_nasc' => 'required|string|max:255',
             'telefone' => 'required|string|max:255',
-            'turmas_id' => 'required|string|max:255',
-            'descricao' => 'nullable|string',
+            'turmas_id' => 'required|',
         ]);
 
 

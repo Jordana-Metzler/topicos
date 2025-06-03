@@ -18,6 +18,7 @@
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th>Data de nascimento</th>
+                        <th>Turma</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -27,13 +28,13 @@
                             <td>{{ $aluno->nome }}</td>
                             <td>{{ $aluno->telefone }}</td>
                             <td>{{ $aluno->data_nasc }}</td>
-                            <td>{{ $aluno->turmas_id }}</td>
+                            <td>{{ $aluno->turma->nome ?? 'Não atribuída' }}</td>
                             <td>
                             <a href="{{ route('alunos.show', $aluno) }}" class="link blue">Ver</a>
                             |
                             <a href="{{ route('alunos.edit', $aluno) }}" class="link yellow">Editar</a>
                             |
-                            <form action="{{ route('aluno.destroy', $aluno) }}" method="POST" class="inline"
+                            <form action="{{ route('alunos.destroy', $aluno) }}" method="POST" class="inline"
                                 onsubmit="return confirm('Tem certeza que deseja excluir este aluno?')">
                                 @csrf
                                 @method('DELETE')
