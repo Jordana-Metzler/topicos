@@ -63,7 +63,8 @@ class TurmaController extends Controller
         $unidades = Unidade::all();
         $professores = Professor::all();
 
-        return view('turmas.create', compact('unidades', 'professores'));
+        return view('turmas.edit', compact('turma', 'unidades', 'professores'));
+
     }
 
     /**
